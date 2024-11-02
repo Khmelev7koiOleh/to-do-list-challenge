@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import Edit from "vue-material-design-icons/PencilOutline.vue";
 import Delete from "vue-material-design-icons/DeleteOutline.vue";
 import Plus from "vue-material-design-icons/Plus.vue";
+import listData from "./component/ListData.vue";
 import List from "./component/List.vue";
 import AddList from "./component/addList.vue"; // Fixed capitalization to match component name
 
@@ -12,7 +14,11 @@ import { storeToRefs } from "pinia";
 
 // Initialize the Pinia store
 const listStore = useListStore();
-const { tasks } = storeToRefs(listStore);
+const { tasks, addList } = storeToRefs(listStore);
+
+onMounted(() => {
+  loadTasksFromLocalStorage();
+});
 </script>
 
 <template>
@@ -41,6 +47,16 @@ const { tasks } = storeToRefs(listStore);
     <section>
       <AddList />
     </section>
+    <div
+      v-if="addList"
+      class="absolute inset-0 flex items-center justify-center"
+    >
+      <div
+        class="bg-gradient-to-r from-[#181826] to-[black] w-[70%] h-[70%] md:h-[90%] md:w-[60%] flex flex-col justify-center opacity-90"
+      >
+        <listData />
+      </div>
+    </div>
   </div>
 </template>
 
