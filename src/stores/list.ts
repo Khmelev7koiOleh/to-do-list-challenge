@@ -54,7 +54,7 @@ export const useListStore = defineStore("list", () => {
       status: "false",
     };
 
-    tasks.push(taskData);
+    tasks.value.push(taskData);
     listName.value = "";
     nextId.value++;
     addList.value = false;
