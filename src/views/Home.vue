@@ -11,7 +11,7 @@ import { ref, computed, reactive } from "vue";
 
 import { useListStore } from "../stores/list";
 import { storeToRefs } from "pinia";
-import UncompletedTasks from "@/component/uncompletedTasks.vue";
+import UncompletedTasks from "@/component/UncompletedTasks.vue";
 import AllTasks from "@/component/AllTasks.vue";
 
 // Initialize the Pinia store

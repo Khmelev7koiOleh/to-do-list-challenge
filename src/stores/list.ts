@@ -17,25 +17,25 @@ export const useListStore = defineStore("list", () => {
   // const completedTasks = ref([]);
   const listName = ref("");
 
-  // // const removeValue = ref(false);
-  // const loadTasks = () => {
-  //   const savedTasks = localStorage.getItem("tasks");
-  //   if (savedTasks) {
-  //     tasks.value = JSON.parse(savedTasks);
-  //   }
-  // };
+  // const removeValue = ref(false);
+  const loadTasks = () => {
+    const savedTasks = localStorage.getItem("tasks");
+    if (savedTasks) {
+      tasks.value = JSON.parse(savedTasks);
+    }
+  };
 
-  // // Watch for changes and save to localStorage
-  // watch(
-  //   tasks,
-  //   (newTasks) => {
-  //     localStorage.setItem("tasks", JSON.stringify(newTasks));
-  //   },
-  //   { deep: true }
-  // );
+  // Watch for changes and save to localStorage
+  watch(
+    tasks,
+    (newTasks) => {
+      localStorage.setItem("tasks", JSON.stringify(newTasks));
+    },
+    { deep: true }
+  );
 
-  // // Call loadTasks when the store is used
-  // loadTasks();
+  // Call loadTasks when the store is used
+  loadTasks();
 
   const removeTask = (id) => {
     const index = tasks.value.findIndex((task) => task.id === id);
