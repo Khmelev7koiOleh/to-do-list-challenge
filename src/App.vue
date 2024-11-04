@@ -68,7 +68,7 @@ const { tasks, addList } = storeToRefs(listStore);
       </div>
     </section>
 
-    <!-- Fixed bottom container -->
+    <!-- Fixed bottom container - --->
     <section>
       <AddList />
     </section>
