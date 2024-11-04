@@ -10,9 +10,9 @@ import { useListStore } from "../stores/list";
 import { storeToRefs } from "pinia";
 
 // Initialize the Pinia store
-const useList = useListStore();
+const listStore = useListStore();
 
-const { tasks } = storeToRefs(useList);
+const { tasks, addList } = storeToRefs(listStore);
 
 const props = defineProps({
   task: Object,
@@ -20,6 +20,8 @@ const props = defineProps({
 </script>
 
 <template>
+  <!-- Completed -->
+
   <div class="bg-gray-300 rounded-full">
     <div class="flex justify-between gap-4 w-full px-2 py-2">
       <div class="flex gap-4 items-center px-2">
@@ -42,7 +44,7 @@ const props = defineProps({
           class="cursor-pointer bg-white rounded-full p-1"
         />
         <Delete
-          @click="useList.removeTask(task.id)"
+          @click="listStore.removeTask(task.id)"
           fillColor="#000"
           :size="25"
           class="cursor-pointer bg-white rounded-full p-1"

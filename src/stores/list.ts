@@ -1,4 +1,4 @@
-import { ref, reactive, watch } from "vue";
+import { ref, reactive, watch, computed } from "vue";
 import { defineStore } from "pinia";
 
 // Define the Pinia store using the Composition API
@@ -7,6 +7,14 @@ export const useListStore = defineStore("list", () => {
   const addList = ref(false);
   const nextId = ref(0);
   const tasks = ref([]);
+
+  const refStatus = ref(false);
+  const toggleTasksView = reactive({
+    all: true,
+    completed: false,
+    uncompleted: false,
+  });
+  // const completedTasks = ref([]);
   const listName = ref("");
 
   // const removeValue = ref(false);
@@ -29,10 +37,6 @@ export const useListStore = defineStore("list", () => {
   // Call loadTasks when the store is used
   loadTasks();
 
-  const addTask = (newTask) => {
-    tasks.value.push(newTask);
-  };
-
   const removeTask = (id) => {
     const index = tasks.value.findIndex((task) => task.id === id);
     if (index !== -1) {
@@ -51,7 +55,7 @@ export const useListStore = defineStore("list", () => {
     const taskData = {
       id: nextId.value,
       name: listName.value,
-      status: "false",
+      status: refStatus.value,
     };
 
     tasks.value.push(taskData);
@@ -60,6 +64,38 @@ export const useListStore = defineStore("list", () => {
     addList.value = false;
   };
 
+  //Show Compeleted tasks
+  const showCompletedTasks = () => {
+    toggleTasksView.completed = true;
+    toggleTasksView.all = false;
+    toggleTasksView.uncompleted = false;
+  };
+  const showUncompletedTasks = () => {
+    toggleTasksView.completed = false;
+    toggleTasksView.all = false;
+    toggleTasksView.uncompleted = true;
+  };
+
+  const showAlldTasks = () => {
+    toggleTasksView.completed = false;
+    toggleTasksView.all = true;
+    toggleTasksView.uncompleted = false;
+  };
+
+  // functions
+
+  const getCompletedTasks = computed(() => {
+    return tasks.value.filter((task) => task.status === true);
+  });
+  const getUncompletedTasks = computed(() => {
+    return tasks.value.filter((task) => task.status === false);
+  });
+
+  // if (status) {
+  // }
+  // completedTasks.value.push(completed);
+  // console.log(completed);
+  // };
   // Return the state and actions
   return {
     addList,
@@ -68,5 +104,11 @@ export const useListStore = defineStore("list", () => {
     listName,
     nameList,
     removeTask,
+    showAlldTasks,
+    showCompletedTasks,
+    showUncompletedTasks,
+    getCompletedTasks,
+    getUncompletedTasks,
+    toggleTasksView,
   };
 });
