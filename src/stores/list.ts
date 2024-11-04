@@ -3,10 +3,17 @@ import { defineStore } from "pinia";
 
 // Define the Pinia store using the Composition API
 export const useListStore = defineStore("list", () => {
+  // typeScript
+  type Task = {
+    id: number;
+    name: string;
+    status: boolean;
+  };
+
   // Define reactive state
   const addList = ref(false);
   const nextId = ref(0);
-  const tasks = ref([]);
+  const tasks = ref<Task[]>([]);
 
   const refStatus = ref(false);
   const toggleTasksView = reactive({
@@ -37,7 +44,7 @@ export const useListStore = defineStore("list", () => {
   // Call loadTasks when the store is used
   loadTasks();
 
-  const removeTask = (id) => {
+  const removeTask = (id: number) => {
     const index = tasks.value.findIndex((task) => task.id === id);
     if (index !== -1) {
       tasks.value.splice(index, 1);

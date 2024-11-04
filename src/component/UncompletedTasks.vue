@@ -1,7 +1,10 @@
 <script setup lang="ts">
 // import Close from "vue-material-design-icons/Close.vue";
+//@ts-ignore
 import Edit from "vue-material-design-icons/PencilOutline.vue";
+//@ts-ignore
 import Delete from "vue-material-design-icons/DeleteOutline.vue";
+//@ts-ignore
 import Duplicate from "vue-material-design-icons/ContentDuplicate.vue";
 
 import { ref, computed } from "vue";
@@ -13,10 +16,14 @@ import { storeToRefs } from "pinia";
 const listStore = useListStore();
 
 const { tasks, addList } = storeToRefs(listStore);
-
-const props = defineProps({
-  task: Object,
-});
+interface Task {
+  id: number;
+  name: string;
+  status: boolean;
+}
+const props = defineProps<{
+  task: Task;
+}>();
 </script>
 
 <template>
